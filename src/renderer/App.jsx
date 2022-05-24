@@ -1,7 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import SideBar from './feature/side-bar/side-bar';
+import MiniDrawer from './feature/side-bar/side-bar1';
 
 import Exam from './feature/exam/exam';
 import NewWord from './feature/new-word/new-word';
@@ -12,7 +12,7 @@ export default function App() {
         <div style={{ width: '100vw', height: '100vh' }}>
             <Router>
                 <Routes>
-                    <Route path="/" element={<SideBar />}>
+                    <Route path="/" element={<MiniDrawer />}>
                         <Route path="exam" element={<Exam />} />
                         <Route path="train" element={<Train />} />
                         <Route path="word" element={<NewWord />} />
