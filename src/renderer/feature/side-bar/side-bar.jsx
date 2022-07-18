@@ -1,228 +1,187 @@
 import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import ArrowRight from '@mui/icons-material/ArrowRight';
-import Home from '@mui/icons-material/Home';
-import Settings from '@mui/icons-material/Settings';
-import People from '@mui/icons-material/People';
-import PermMedia from '@mui/icons-material/PermMedia';
-import Dns from '@mui/icons-material/Dns';
-import Public from '@mui/icons-material/Public';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import FormatColorTextIcon from '@mui/icons-material/FormatColorText';
+import SpellcheckIcon from '@mui/icons-material/Spellcheck';
+import SettingIcon from '@mui/icons-material/Settings';
 import { Link, Outlet } from 'react-router-dom';
 
+const drawerWidth = 200;
+
 const data = [
-    { icon: <People />, label: 'User', linkTo: 'word' },
-    { icon: <Dns />, label: 'Word', linkTo: 'word' },
-    { icon: <PermMedia />, label: 'Training', linkTo: 'train' },
-    { icon: <Public />, label: 'Exam', linkTo: 'exam' },
+    { icon: <FormatColorTextIcon />, label: 'Word', linkTo: '' },
+    { icon: <AutoStoriesIcon />, label: 'Training', linkTo: 'train' },
+    { icon: <SpellcheckIcon />, label: 'Exam', linkTo: 'exam' },
+    { icon: <SettingIcon />, label: 'Setting', linkTo: 'setting' },
 ];
 
-const FireNav = styled(List)({
-    '& .MuiListItemButton-root': {
-        paddingLeft: 24,
-        paddingRight: 24,
-    },
-    '& .MuiListItemIcon-root': {
-        minWidth: 0,
-        marginRight: 16,
-    },
-    '& .MuiSvgIcon-root': {
-        fontSize: 20,
+const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
     },
 });
 
-export default function SideBar() {
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+}));
+
+export default function MiniDrawer() {
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
     return (
-        <div style={{ display: 'flex', height: '100%' }}>
-            <Box sx={{ display: 'flex', height: '100%' }}>
-                <ThemeProvider
-                    theme={createTheme({
-                        components: {
-                            MuiListItemButton: {
-                                defaultProps: {
-                                    disableTouchRipple: true,
-                                },
-                            },
-                        },
-                        palette: {
-                            mode: 'dark',
-                            primary: { main: 'rgb(102, 157, 246)' },
-                            background: { paper: 'rgb(5, 30, 52)' },
-                        },
-                    })}
-                >
-                    <Paper elevation={0} sx={{ maxWidth: 256 }}>
-                        <FireNav component="nav">
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar position="fixed" open={open}>
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        edge="start"
+                        sx={{
+                            marginRight: 5,
+                            ...(open && { display: 'none' }),
+                        }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" noWrap component="div">
+                        Mini variant drawer
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer variant="permanent" open={open}>
+                <DrawerHeader>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl' ? (
+                            <ChevronRightIcon />
+                        ) : (
+                            <ChevronLeftIcon />
+                        )}
+                    </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <List>
+                    {data.map((item) => (
+                        <ListItem
+                            button
+                            key={item.label}
+                            disablePadding
+                            sx={{ display: 'block' }}
+                            component={Link}
+                            to={`/${item.linkTo}`}
+                            name={item.label}
+                        >
                             <ListItemButton
-                                component="a"
-                                sx={{ width: '100%' }}
+                                sx={{
+                                    minHeight: 48,
+                                }}
                             >
-                                <ListItemIcon sx={{ fontSize: 20 }}>
-                                    🔥
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: 3,
+                                        justifyContent: 'center',
+                                    }}
+                                    color="primary"
+                                >
+                                    {item.icon}
                                 </ListItemIcon>
                                 <ListItemText
-                                    sx={{ my: 0 }}
-                                    primary="Learn Now !"
-                                    primaryTypographyProps={{
-                                        fontSize: 20,
-                                        fontWeight: 'medium',
-                                        letterSpacing: 0,
+                                    primary={item.label}
+                                    sx={{
+                                        opacity: open ? 1 : 0,
                                     }}
                                 />
                             </ListItemButton>
-                            <Divider />
-                            <ListItem component="div" disablePadding>
-                                <ListItemButton sx={{ height: 56 }}>
-                                    <ListItemIcon>
-                                        <Home color="primary" />
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary="Project Overview"
-                                        primaryTypographyProps={{
-                                            color: 'primary',
-                                            fontWeight: 'medium',
-                                            variant: 'body2',
-                                        }}
-                                    />
-                                </ListItemButton>
-                                <Tooltip title="Project Settings">
-                                    <IconButton
-                                        size="large"
-                                        sx={{
-                                            '& svg': {
-                                                color: 'rgba(255,255,255,0.8)',
-                                                transition: '0.2s',
-                                                transform:
-                                                    'translateX(0) rotate(0)',
-                                            },
-                                            '&:hover, &:focus': {
-                                                bgcolor: 'unset',
-                                                '& svg:first-of-type': {
-                                                    transform:
-                                                        'translateX(-4px) rotate(-20deg)',
-                                                },
-                                                '& svg:last-of-type': {
-                                                    right: 0,
-                                                    opacity: 1,
-                                                },
-                                            },
-                                            '&:after': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                height: '80%',
-                                                display: 'block',
-                                                left: 0,
-                                                width: '1px',
-                                                bgcolor: 'divider',
-                                            },
-                                        }}
-                                    >
-                                        <Settings />
-                                        <ArrowRight
-                                            sx={{
-                                                position: 'absolute',
-                                                right: 4,
-                                                opacity: 0,
-                                            }}
-                                        />
-                                    </IconButton>
-                                </Tooltip>
-                            </ListItem>
-                            <Divider />
-                            <Box
-                                sx={{
-                                    pb: 0,
-                                }}
-                            >
-                                {/* <ListItemButton
-                                alignItems="flex-start"
-                                onClick={() => setOpen(!open)}
-                                sx={{
-                                    px: 3,
-                                    pt: 2.5,
-                                    pb: open ? 0 : 2.5,
-                                    '&:hover, &:focus': {
-                                        '& svg': { opacity: open ? 1 : 0 },
-                                    },
-                                }}
-                            >
-                                <ListItemText
-                                    primary="Primary Functions"
-                                    primaryTypographyProps={{
-                                        fontSize: 15,
-                                        fontWeight: 'medium',
-                                        lineHeight: '20px',
-                                        mb: '2px',
-                                    }}
-                                    // secondary="Authentication, Firestore Database, Realtime Database, Storage, Hosting, Functions, and Machine Learning"
-                                    // secondaryTypographyProps={{
-                                    //     noWrap: true,
-                                    //     fontSize: 12,
-                                    //     lineHeight: '16px',
-                                    //     color: open
-                                    //         ? 'rgba(0,0,0,0)'
-                                    //         : 'rgba(255,255,255,0.5)',
-                                    // }}
-                                    sx={{ my: 0 }}
-                                />
-                                <KeyboardArrowDown
-                                    sx={{
-                                        mr: -1,
-                                        opacity: 0,
-                                        transform: open
-                                            ? 'rotate(-180deg)'
-                                            : 'rotate(0)',
-                                        transition: '0.2s',
-                                    }}
-                                />
-                            </ListItemButton> */}
-                                {data.map((item) => (
-                                    <ListItemButton
-                                        key={item.label}
-                                        sx={{
-                                            py: 0,
-                                            minHeight: 22,
-                                        }}
-                                    >
-                                        <Link
-                                            to={`/${item.linkTo}`}
-                                            style={{
-                                                width: '100%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                color: 'rgba(255,255,255,.8)',
-                                            }}
-                                        >
-                                            <ListItemIcon
-                                                sx={{ color: 'inherit' }}
-                                            >
-                                                {item.icon}
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={item.label}
-                                                primaryTypographyProps={{
-                                                    fontSize: 14,
-                                                    fontWeight: 600,
-                                                }}
-                                            />
-                                        </Link>
-                                    </ListItemButton>
-                                ))}
-                            </Box>
-                        </FireNav>
-                    </Paper>
-                </ThemeProvider>
+                        </ListItem>
+                    ))}
+                </List>
+            </Drawer>
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                <DrawerHeader />
+                <Outlet />
             </Box>
-            <Outlet />
-        </div>
+        </Box>
     );
 }

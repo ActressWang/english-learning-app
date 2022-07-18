@@ -7,8 +7,6 @@ body {
     color: #112f4b;
     background-color: #fbf1e3;
     height: 100vh;
-    font-family: sans-serif;
-    font-size: 1rem;
     overflow-y: hidden;
     display: flex;
     justify-content: center;
