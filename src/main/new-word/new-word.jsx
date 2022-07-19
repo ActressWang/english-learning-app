@@ -1,7 +1,6 @@
 import { ipcMain } from 'electron';
 import fs from 'fs';
 
-// for test
-ipcMain.on('test', async (event, args) => {
-    event.reply('test', `hello world ${args}`);
+ipcMain.on('addWord', async (event, args) => {
+    event.reply('addWord', `hello world ${args}`);
 });

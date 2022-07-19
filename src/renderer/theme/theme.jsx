@@ -3,12 +3,12 @@ import { createTheme } from '@mui/material/styles';
 // eslint-disable-next-line import/prefer-default-export
 export const mainTheme = createTheme({
     palette: {
-        type: 'light',
+        type: 'dark',
         primary: {
-            main: '#424fb9',
+            main: '#0a7c6b',
         },
         secondary: {
-            main: '#f50057',
+            main: '#c2185b',
         },
         error: {
             main: '#f44336',
@@ -22,28 +22,55 @@ export const mainTheme = createTheme({
         success: {
             main: '#4caf50',
         },
+        color: '#ffffff',
+        text: {
+            primary: '#ffffff',
+            secondary: 'rgba(255,255,255,0.7)',
+            disabled: 'rgba(255,255,255,0.6)',
+            hint: 'rgba(255,255,255,0.6)',
+        },
+        background: {
+            default: '#303030',
+            paper: '#424242',
+        },
     },
     typography: {
-        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-        fontSize: 14,
-        htmlFontSize: 14,
-        h1: {
-            fontFamily: 'Lora',
-        },
-        h2: {
-            fontFamily: 'Lora',
-        },
-        h3: {
-            fontFamily: 'Lora',
-        },
         h4: {
-            fontFamily: 'Lora',
+            fontSize: '2rem',
         },
         h5: {
-            fontFamily: 'Lora',
+            fontSize: '1.6rem',
         },
-        h6: {
-            fontFamily: 'Lora',
+        subtitle1: {
+            fontSize: '1.4rem',
         },
+        subtitle2: {
+            fontSize: '1rem',
+        },
+        body1: {
+            fontSize: '1rem',
+        },
+        body2: {
+            fontSize: '0.9rem',
+            letterSpacing: '0.05em',
+            lineHeight: 1.03,
+            fontWeight: 400,
+        },
+        button: {
+            fontSize: '1rem',
+        },
+        caption: {
+            fontSize: '1rem',
+        },
+        overline: {
+            fontSize: '0.9rem',
+            lineHeight: 1.77,
+            letterSpacing: '0.1em',
+        },
+        fontSize: 16,
+        fontWeightLight: 200,
+        fontWeightRegular: 300,
+        fontWeightMedium: 400,
+        fontWeightBold: 600,
     },
 });

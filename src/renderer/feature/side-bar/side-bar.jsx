@@ -25,10 +25,10 @@ import { Link, Outlet } from 'react-router-dom';
 const drawerWidth = 200;
 
 const data = [
-    { icon: <FormatColorTextIcon />, label: 'Word', linkTo: '' },
-    { icon: <AutoStoriesIcon />, label: 'Training', linkTo: 'train' },
-    { icon: <SpellcheckIcon />, label: 'Exam', linkTo: 'exam' },
-    { icon: <SettingIcon />, label: 'Setting', linkTo: 'setting' },
+    { icon: <FormatColorTextIcon />, label: '单词', linkTo: '' },
+    { icon: <AutoStoriesIcon />, label: '练习', linkTo: 'train' },
+    { icon: <SpellcheckIcon />, label: '测试', linkTo: 'exam' },
+    { icon: <SettingIcon />, label: '设置', linkTo: 'setting' },
 ];
 
 const openedMixin = (theme) => ({
@@ -126,7 +126,7 @@ export default function MiniDrawer() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Mini variant drawer
+                        英语学习工具
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -162,8 +162,8 @@ export default function MiniDrawer() {
                                         minWidth: 0,
                                         mr: 3,
                                         justifyContent: 'center',
+                                        color: 'color',
                                     }}
-                                    color="primary"
                                 >
                                     {item.icon}
                                 </ListItemIcon>
