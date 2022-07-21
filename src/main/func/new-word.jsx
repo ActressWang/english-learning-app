@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron';
 import fs from 'fs';
-import fpath from '../fpath';
+import fpath from '../getFpath';
 
 const handleAddWord = (args) => {
     fs.readFile(fpath, 'utf8', (readErr, res) => {

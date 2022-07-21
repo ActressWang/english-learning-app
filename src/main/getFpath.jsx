@@ -1,5 +1,4 @@
 import path from 'path';
-
 import { app } from 'electron';
 
 const RESOURCES_PATH = app.isPackaged
