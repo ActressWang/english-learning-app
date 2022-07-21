@@ -28,8 +28,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-console.log(process.env.NODE_ENV);
-
 export default function NewWord() {
     const classes = useStyles();
     const [newWord, setNewWord] = React.useState('');
@@ -52,9 +50,9 @@ export default function NewWord() {
     // todo: 无键盘化
     const handleAddWord = () => {
         window.electron.ipcRenderer.sendMessage('addWord', newWord);
-        window.electron.ipcRenderer.once('addWord', (arg) => {
-            console.log(arg);
-        });
+        // window.electron.ipcRenderer.once('addWord', (arg) => {
+        //     console.log(arg);
+        // });
     };
 
     const handleTranslate = () => {};

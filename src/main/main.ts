@@ -14,7 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import './new-word/new-word';
+import './func/new-word';
 
 export default class AppUpdater {
     constructor() {
