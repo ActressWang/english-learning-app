@@ -12,7 +12,8 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
+// import MenuBuilder from './menu';
+import './menu-use';
 import { resolveHtmlPath } from './util';
 import './func/new-word';
 import '../../release/app/dbtest';
@@ -81,6 +82,12 @@ const createWindow = async () => {
                 ? path.join(__dirname, 'preload.js')
                 : path.join(__dirname, '../../.erb/dll/preload.js'),
         },
+        // 自定义标题栏
+        titleBarStyle: 'hidden',
+        titleBarOverlay: {
+            color: '#0a7c6b',
+            symbolColor: '#fff',
+        },
     });
 
     mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -100,8 +107,8 @@ const createWindow = async () => {
         mainWindow = null;
     });
 
-    const menuBuilder = new MenuBuilder(mainWindow);
-    menuBuilder.buildMenu();
+    // const menuBuilder = new MenuBuilder(mainWindow);
+    // menuBuilder.buildMenu();
 
     // Open urls in the user's browser
     mainWindow.webContents.setWindowOpenHandler((edata) => {

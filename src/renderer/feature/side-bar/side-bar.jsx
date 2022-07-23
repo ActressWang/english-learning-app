@@ -22,6 +22,8 @@ import SpellcheckIcon from '@mui/icons-material/Spellcheck';
 import SettingIcon from '@mui/icons-material/Settings';
 import { Link, Outlet } from 'react-router-dom';
 
+import './side-bar.css';
+
 const drawerWidth = 200;
 
 const data = [
@@ -111,7 +113,7 @@ export default function MiniDrawer() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} className="appbar">
                 <Toolbar>
                     <IconButton
                         color="inherit"

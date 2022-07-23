@@ -284,7 +284,7 @@ export default class MenuBuilder {
                     {
                         label: 'Learn More',
                         click() {
-                            shell.openExternal('https://electronjs.org');
+                            shell.openExternal('https://www.baidu.com');
                         },
                     },
                     {
