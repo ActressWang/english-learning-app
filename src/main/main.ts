@@ -16,6 +16,7 @@ import log from 'electron-log';
 import './menu-use';
 import { resolveHtmlPath } from './util';
 import './func/new-word';
+import './func/db-test';
 import '../../release/app/dbtest';
 
 export default class AppUpdater {

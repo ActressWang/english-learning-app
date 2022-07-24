@@ -57,6 +57,15 @@ export default function NewWord() {
 
     const handleTranslate = () => {};
 
+
+    // todo: 无键盘化
+    const dbtest = () => {
+        window.electron.ipcRenderer.sendMessage('dbTest', null);
+        window.electron.ipcRenderer.once('dbTestReturn', (arg) => {
+            alert(arg);
+        });
+    };
+
     return (
         <div className="container">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -113,6 +122,16 @@ export default function NewWord() {
             <div className={classes.form}>
                 <Paper className={classes.paper}>区域1</Paper>
                 <Paper className={classes.paper}>区域2</Paper>
+            </div>
+            <div className={classes.form}>
+                <Paper className={classes.paper}>DBTest</Paper>
+                <Button
+                    onClick={dbtest}
+                    variant="contained"
+                    size="small"
+                >
+                    测试数据库查询
+                </Button>
             </div>
         </div>
     );
