@@ -14,7 +14,7 @@
         "postinstall": "npm run electron-rebuild && npm run link-modules"
     },
     "dependencies": {
-        "sqlite3": "^5.0.9"
+        "sqlite3": "^5.0.10"
     },
     "license": "MIT"
 }
